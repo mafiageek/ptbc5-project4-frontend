@@ -11,6 +11,7 @@ const FeedScreen = () => {
 
   const loadListings = async () => {
     try {
+      console.log(`${BASE_URL}/listings`);
       const { data } = await axios.get(`${BASE_URL}/listings`);
       setRefreshing(false);
       setListings(data);

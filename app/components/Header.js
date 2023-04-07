@@ -1,4 +1,4 @@
-import { ScrollView, Text, View } from "react-native";
+import { ScrollView, SafeAreaView } from "react-native";
 import { Button, Appbar } from "react-native-paper";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -9,6 +9,7 @@ const Header = () => {
 
   const loadCategories = async () => {
     try {
+      console.log(`${BASE_URL}/categories`);
       const { data } = await axios.get(`${BASE_URL}/categories`);
       setCategories(data);
     } catch (err) {
