@@ -13,15 +13,19 @@ import { SelectList } from "react-native-dropdown-select-list";
 import { BASE_URL } from "@env";
 import axios from "axios";
 import * as FileSystem from "expo-file-system";
-import ImgToBase64 from "react-native-image-base64";
+import * as Location from "expo-location";
+import { useNavigation } from "@react-navigation/native";
 
-const AddScreen = () => {
+const AddScreen = ({ navigation }) => {
   const [image, setImage] = useState(null);
   const [selected, setSelected] = React.useState("");
   const [categories, setCategories] = useState([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
+  const [location, setLocation] = useState({});
+
+  const navigation = useNavigation();
 
   const handlePress = () => {
     if (!image) pickImage();
@@ -37,7 +41,6 @@ const AddScreen = () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
-      aspect: [4, 3],
       quality: 0.5,
     });
 
@@ -55,7 +58,7 @@ const AddScreen = () => {
         return { key: item._id, value: item.name };
       });
       setCategories(newArray);
-      console.log(newArray);
+      // console.log("newArray => ", newArray);
     } catch (err) {
       console.log(err);
     }
@@ -63,49 +66,57 @@ const AddScreen = () => {
 
   useEffect(() => {
     loadCategories();
-    console.log(categories);
+    // console.log("categories =>", categories);
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        return;
+      }
+
+      const {
+        coords: { latitude, longitude },
+      } = await Location.getLastKnownPositionAsync({});
+      setLocation({
+        longitude,
+        latitude,
+      });
+      console.log(location);
+    })();
   }, []);
 
   const handleSubmit = async () => {
-    console.log(image);
-    const base64 = await ImgToBase64.getBase64String(image);
+    const base64Encode = await FileSystem.readAsStringAsync(image, {
+      encoding: "base64",
+    });
+    const base64Photo = `data:image/jpeg;base64,${base64Encode}`;
 
     const bodyFormData = new FormData();
     bodyFormData.append("title", title);
     bodyFormData.append("price", price);
     bodyFormData.append("description", description);
     bodyFormData.append("category", selected);
-    bodyFormData.append("photo", base64);
+    bodyFormData.append("photo", base64Photo);
+    bodyFormData.append("location", [location.longitude, location.latitude]);
     const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDI0NDVhOTI5YTBiZWJhZjU3YTRkYjIiLCJpYXQiOjE2ODA4NzQ0MzUsImV4cCI6MTY4MTQ3OTIzNX0.eBshiqJp4zgKehJvmyPBMe2EwigjyKyZj1bfqUUnzgA";
-    console.log(bodyFormData);
-
-    // const response = await axios.post(
-    //   `${BASE_URL}/listing`,
-    //   {
-    //     bodyFormData,
-    //   },
-
-    //   {
-    //     headers: { Authorization: `Bearer ${token}` },
-    //   }
-    // );
-
-    // console.log(response);
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDI0NDVhOTI5YTBiZWJhZjU3YTRkYjIiLCJpYXQiOjE2ODA5NDk0NTMsImV4cCI6MTY4MTU1NDI1M30.tBYo83xQZfhiN_jvp7cSG0d7f_yzK0VimYkmXpuREuc";
 
     axios({
       method: "post",
       url: `${BASE_URL}/listing`,
       data: bodyFormData,
       headers: {
-        "Content-Type": "multipart/form-data;",
+        Authorization: token,
       },
     })
       .then((response) => {
         console.log(response);
       })
-      .catch((response) => {
-        console.log(response);
+      .catch((error) => {
+        console.log(error);
       });
   };
 
@@ -162,7 +173,9 @@ const AddScreen = () => {
         >
           POST
         </Button>
-        <Button>Cancel</Button>
+        <Button onPress={() => navigation.navigate("FeedScreen")}>
+          Cancel
+        </Button>
       </SafeAreaView>
     </TouchableWithoutFeedback>
   );
