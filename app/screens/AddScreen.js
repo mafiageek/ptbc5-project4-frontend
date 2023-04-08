@@ -14,9 +14,8 @@ import { BASE_URL } from "@env";
 import axios from "axios";
 import * as FileSystem from "expo-file-system";
 import * as Location from "expo-location";
-import { useNavigation } from "@react-navigation/native";
 
-const AddScreen = ({ navigation }) => {
+const AddScreen = ({ navigation, Feed }) => {
   const [image, setImage] = useState(null);
   const [selected, setSelected] = React.useState("");
   const [categories, setCategories] = useState([]);
@@ -24,8 +23,6 @@ const AddScreen = ({ navigation }) => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [location, setLocation] = useState({});
-
-  const navigation = useNavigation();
 
   const handlePress = () => {
     if (!image) pickImage();
@@ -173,9 +170,7 @@ const AddScreen = ({ navigation }) => {
         >
           POST
         </Button>
-        <Button onPress={() => navigation.navigate("FeedScreen")}>
-          Cancel
-        </Button>
+        <Button onPress={() => navigation.navigate(Feed)}>Cancel</Button>
       </SafeAreaView>
     </TouchableWithoutFeedback>
   );
