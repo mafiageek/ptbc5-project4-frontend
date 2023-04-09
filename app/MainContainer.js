@@ -41,7 +41,7 @@ const MainContainer = () => {
       navigationState={{ index, routes }}
       onIndexChange={setIndex}
       renderScene={renderScene}
-    />
+    ></BottomNavigation>
   );
 };
 

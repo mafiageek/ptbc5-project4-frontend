@@ -14,8 +14,11 @@ import { BASE_URL } from "@env";
 import axios from "axios";
 import * as FileSystem from "expo-file-system";
 import * as Location from "expo-location";
+import { createStackNavigator } from "@react-navigation/stack";
 
-const AddScreen = ({ navigation, Feed }) => {
+const Stack = createStackNavigator();
+
+const AddScreen = ({ navigation }) => {
   const [image, setImage] = useState(null);
   const [selected, setSelected] = React.useState("");
   const [categories, setCategories] = useState([]);
