@@ -15,8 +15,7 @@ import axios from "axios";
 import * as FileSystem from "expo-file-system";
 import * as Location from "expo-location";
 import { createStackNavigator } from "@react-navigation/stack";
-
-const Stack = createStackNavigator();
+import { useNavigation } from "@react-navigation/native";
 
 const AddScreen = ({ navigation }) => {
   const [image, setImage] = useState(null);
@@ -118,6 +117,16 @@ const AddScreen = ({ navigation }) => {
       .catch((error) => {
         console.log(error);
       });
+
+    navigation.navigate("Feed");
+  };
+
+  const handleCancel = () => {
+    setImage(null);
+    setSelected(null);
+    setTitle(null);
+    setDescription(null);
+    setPrice(null);
   };
 
   return (
@@ -173,7 +182,7 @@ const AddScreen = ({ navigation }) => {
         >
           POST
         </Button>
-        <Button onPress={() => navigation.navigate(Feed)}>Cancel</Button>
+        <Button onPress={handleCancel}>Cancel</Button>
       </SafeAreaView>
     </TouchableWithoutFeedback>
   );

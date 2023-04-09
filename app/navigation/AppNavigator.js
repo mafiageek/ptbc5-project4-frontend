@@ -1,16 +1,15 @@
 import * as React from "react";
 import { BottomNavigation, Text } from "react-native-paper";
-import FeedScreen from "./screens/FeedScreen";
-import AddScreen from "./screens/AddScreen";
-import AccountScreen from "./screens/AccountScreen";
+import FeedScreen from "../screens/FeedScreen";
+import AddScreen from "../screens/AddScreen";
+import AccountScreen from "../screens/AccountScreen";
+import AddNavigator from "./AddNavigator";
 
 const FeedRoute = () => <FeedScreen />;
 
-const AddRoute = () => <AddScreen />;
-
 const AccountRoute = () => <AccountScreen />;
 
-const MainContainer = () => {
+const AppNavigator = () => {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     {
@@ -32,7 +31,7 @@ const MainContainer = () => {
   const renderScene = BottomNavigation.SceneMap({
     feed: FeedRoute,
 
-    adds: AddRoute,
+    adds: AddNavigator,
     account: AccountRoute,
   });
 
@@ -45,4 +44,4 @@ const MainContainer = () => {
   );
 };
 
-export default MainContainer;
+export default AppNavigator;
