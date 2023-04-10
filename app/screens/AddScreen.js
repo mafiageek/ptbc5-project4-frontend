@@ -14,8 +14,6 @@ import { BASE_URL } from "@env";
 import axios from "axios";
 import * as FileSystem from "expo-file-system";
 import * as Location from "expo-location";
-import { createStackNavigator } from "@react-navigation/stack";
-import { useNavigation } from "@react-navigation/native";
 
 const AddScreen = ({ navigation }) => {
   const [image, setImage] = useState(null);
@@ -24,7 +22,8 @@ const AddScreen = ({ navigation }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
-  const [location, setLocation] = useState({});
+  const [latitude, setlatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
 
   const handlePress = () => {
     if (!image) pickImage();
@@ -68,6 +67,24 @@ const AddScreen = ({ navigation }) => {
     // console.log("categories =>", categories);
   }, []);
 
+  // useEffect(() => {
+  //   async () => {
+  //     let { status } = await Location.requestForegroundPermissionsAsync();
+  //     if (status !== "granted") {
+  //       setErrorMsg("Permission to access location was denied");
+  //       return;
+  //     }
+
+  //     const {
+  //       coords: { latitude, longitude },
+  //     } = await Location.getLastKnownPositionAsync({});
+  //     setlatitude(latitude);
+  //     setLongitude(longitude);
+  //     console.log("lat =>", latitude);
+  //     console.log("lon =>", longitude);
+  //   }();
+  // }, []);
+
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -79,11 +96,10 @@ const AddScreen = ({ navigation }) => {
       const {
         coords: { latitude, longitude },
       } = await Location.getLastKnownPositionAsync({});
-      setLocation({
-        longitude,
-        latitude,
-      });
-      console.log(location);
+      setlatitude(latitude);
+      setLongitude(longitude);
+      console.log("lat =>", latitude);
+      console.log("lon =>", longitude);
     })();
   }, []);
 
@@ -99,7 +115,8 @@ const AddScreen = ({ navigation }) => {
     bodyFormData.append("description", description);
     bodyFormData.append("category", selected);
     bodyFormData.append("photo", base64Photo);
-    bodyFormData.append("location", [location.longitude, location.latitude]);
+    bodyFormData.append("latitude", latitude);
+    bodyFormData.append("longitude", longitude);
     const token =
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDI0NDVhOTI5YTBiZWJhZjU3YTRkYjIiLCJpYXQiOjE2ODA5NDk0NTMsImV4cCI6MTY4MTU1NDI1M30.tBYo83xQZfhiN_jvp7cSG0d7f_yzK0VimYkmXpuREuc";
 
@@ -112,13 +129,12 @@ const AddScreen = ({ navigation }) => {
       },
     })
       .then((response) => {
+        handleCancel();
         console.log(response);
       })
       .catch((error) => {
         console.log(error);
       });
-
-    navigation.navigate("Feed");
   };
 
   const handleCancel = () => {
@@ -136,7 +152,7 @@ const AddScreen = ({ navigation }) => {
           margin: 20,
         }}
       >
-        <Text variant="titleLarge">New Listing</Text>
+        {/* <Text variant="titleLarge">New Listing</Text> */}
         <View style={{ padding: 20 }}>
           {!image && <MaterialCommunityIcons name="camera" size={40} />}
         </View>

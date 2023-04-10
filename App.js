@@ -5,10 +5,10 @@ import AppNavigator from "./app/navigation/AppNavigator";
 
 export default function App() {
   return (
-    <PaperProvider>
-      <NavigationContainer>
+    <NavigationContainer>
+      <PaperProvider>
         <AppNavigator />
-      </NavigationContainer>
-    </PaperProvider>
+      </PaperProvider>
+    </NavigationContainer>
   );
 }

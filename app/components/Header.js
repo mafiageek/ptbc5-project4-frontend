@@ -1,4 +1,4 @@
-import { ScrollView, SafeAreaView } from "react-native";
+import { ScrollView, View } from "react-native";
 import { Button, Appbar } from "react-native-paper";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -23,7 +23,7 @@ const Header = () => {
   }, []);
 
   return (
-    <Appbar.Header>
+    <View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {categories.map((item) => (
           <Button
@@ -36,7 +36,7 @@ const Header = () => {
           </Button>
         ))}
       </ScrollView>
-    </Appbar.Header>
+    </View>
   );
 };
 

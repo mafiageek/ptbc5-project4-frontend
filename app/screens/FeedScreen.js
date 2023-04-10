@@ -5,7 +5,7 @@ import Header from "../components/Header";
 import Listings from "../components/Listings";
 import { BASE_URL } from "@env";
 
-const FeedScreen = () => {
+const FeedScreen = ({ navigation }) => {
   const [listings, setListings] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
 
@@ -33,13 +33,14 @@ const FeedScreen = () => {
   }, []);
 
   return (
-    <View>
+    <View style={{ marginTop: 10 }}>
       <Header />
-
       <FlatList
         data={listings}
         keyExtractor={(listing) => listing._id.toString()}
-        renderItem={({ item }) => <Listings key={item.key} item={item} />}
+        renderItem={({ item }) => (
+          <Listings key={item.key} item={item} navigation={navigation} />
+        )}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={loadListings} />
         }

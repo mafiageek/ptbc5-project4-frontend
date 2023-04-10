@@ -1,19 +1,35 @@
 import React from "react";
-import { Avatar, Button, Card, Text } from "react-native-paper";
+import { Card, Text } from "react-native-paper";
+import { TouchableWithoutFeedback } from "react-native";
 
-const Listings = ({ item }) => {
+const Listings = ({ item, navigation }) => {
   return (
-    <Card style={{ padding: 15 }}>
-      {/* <Card.Title title={item.title} subtitle={item.price}/> */}
-
-      <Card.Cover source={{ uri: item.photo }} />
-      <Card.Content>
-        <Text variant="titleMedium">{item.title}</Text>
-        <Text variant="bodyMedium" style={{ color: "teal" }}>
-          ${item.price}
-        </Text>
-      </Card.Content>
-    </Card>
+    <TouchableWithoutFeedback>
+      <Card
+        style={{ padding: 15 }}
+        onPress={() =>
+          navigation.navigate("FeedDetail", {
+            title: item.title,
+            price: item.price,
+            description: item.description,
+            photo: item.photo,
+            location: item.location,
+            userid: item.userid,
+            longitude: item.longitude,
+            latitude: item.latitude,
+          })
+        }
+      >
+        <Card.Cover source={{ uri: item.photo }} />
+        <Card.Content>
+          <Text variant="titleMedium">{item.title}</Text>
+          <Text variant="bodyMedium" style={{ color: "teal" }}>
+            ${item.price}
+          </Text>
+          <Text variant="bodySmall">{item.description}</Text>
+        </Card.Content>
+      </Card>
+    </TouchableWithoutFeedback>
   );
 };
 
