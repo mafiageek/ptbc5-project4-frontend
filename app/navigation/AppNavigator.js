@@ -7,7 +7,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 import FeedNavigator from "./FeedNavigator";
 import AddNavigator from "./AddNavigator";
-import AccountScreen from "../screens/AccountScreen";
+import AccountNavigator from "./AccountNavigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -80,10 +80,10 @@ export default function AppNavigator() {
         }}
       />
       <Tab.Screen
-        name="Account"
-        component={AccountScreen}
+        name="Profile"
+        component={AccountNavigator}
         options={{
-          tabBarLabel: "Account",
+          tabBarLabel: "Profile",
           tabBarIcon: ({ color, size }) => {
             return <Icon name="account" size={size} color={color} />;
           },

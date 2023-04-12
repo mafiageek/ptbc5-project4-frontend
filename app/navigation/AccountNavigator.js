@@ -4,11 +4,15 @@ import AccountScreen from "../screens/AccountScreen";
 
 const Stack = createStackNavigator();
 
-const FeedNavigator = () => (
-  <Stack.Navigator>
+const AccountNavigator = () => (
+  <Stack.Navigator
+    screenOptions={{
+      headerShown: false,
+    }}
+  >
     <Stack.Screen name="Login" component={LoginScreen} />
     <Stack.Screen name="Account" component={AccountScreen} />
   </Stack.Navigator>
 );
 
-export default FeedNavigator;
+export default AccountNavigator;

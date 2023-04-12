@@ -14,6 +14,7 @@ import { BASE_URL } from "@env";
 import axios from "axios";
 import * as FileSystem from "expo-file-system";
 import * as Location from "expo-location";
+import { useAuth } from "../context/auth";
 
 const AddScreen = ({ navigation }) => {
   const [image, setImage] = useState(null);
@@ -24,6 +25,8 @@ const AddScreen = ({ navigation }) => {
   const [price, setPrice] = useState("");
   const [latitude, setlatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
+
+  const [auth, setAuth] = useAuth();
 
   const handlePress = () => {
     if (!image) pickImage();
@@ -62,10 +65,10 @@ const AddScreen = ({ navigation }) => {
     }
   };
 
-  useEffect(() => {
-    loadCategories();
-    // console.log("categories =>", categories);
-  }, []);
+  // useEffect(() => {
+
+  //   // console.log("categories =>", categories);
+  // }, []);
 
   // useEffect(() => {
   //   async () => {
@@ -86,6 +89,11 @@ const AddScreen = ({ navigation }) => {
   // }, []);
 
   useEffect(() => {
+    if (!auth.token) {
+      navigation.navigate("New");
+    }
+
+    loadCategories();
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {

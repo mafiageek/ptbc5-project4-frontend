@@ -4,10 +4,13 @@ import axios from "axios";
 import Header from "../components/Header";
 import Listings from "../components/Listings";
 import { BASE_URL } from "@env";
+import { useAuth } from "../context/auth";
 
 const FeedScreen = ({ navigation }) => {
   const [listings, setListings] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
+  const [auth, setAuth] = useAuth();
+  console.log(auth);
 
   const loadListings = async () => {
     try {
