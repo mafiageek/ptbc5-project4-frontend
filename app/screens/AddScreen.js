@@ -89,9 +89,10 @@ const AddScreen = ({ navigation }) => {
   // }, []);
 
   useEffect(() => {
-    if (!auth.token) {
-      navigation.navigate("New");
-    }
+    // don't think so do it this way
+    // if (!auth.token) {
+    //   navigation.navigate("New");
+    // }
 
     loadCategories();
     (async () => {
