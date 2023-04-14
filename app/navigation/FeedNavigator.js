@@ -6,7 +6,14 @@ const Stack = createStackNavigator();
 
 const FeedNavigator = () => (
   <Stack.Navigator>
-    <Stack.Screen name="Listings" component={FeedScreen} />
+    <Stack.Screen
+      name="Listings"
+      component={FeedScreen}
+      options={{
+        headerBackTitleVisible: false,
+        headerMode: "none",
+      }}
+    />
     <Stack.Screen name="Detail" component={FeedDetailScreen} />
   </Stack.Navigator>
 );

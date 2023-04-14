@@ -1,4 +1,4 @@
-import { FlatList, RefreshControl, View } from "react-native";
+import { FlatList, RefreshControl, View, SafeAreaView } from "react-native";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Header from "../components/Header";
@@ -36,7 +36,7 @@ const FeedScreen = ({ navigation }) => {
   }, []);
 
   return (
-    <View style={{ marginTop: 10 }}>
+    <SafeAreaView>
       <Header />
       <FlatList
         data={listings}
@@ -48,7 +48,7 @@ const FeedScreen = ({ navigation }) => {
           <RefreshControl refreshing={refreshing} onRefresh={loadListings} />
         }
       />
-    </View>
+    </SafeAreaView>
   );
 };
 

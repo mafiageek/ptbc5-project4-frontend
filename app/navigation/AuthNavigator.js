@@ -9,7 +9,6 @@ const AuthNavigator = () => (
   <Stack.Navigator
     screenOptions={{
       headerShown: false,
-      headerBackVisible: false,
       headerMode: "none",
     }}
   >
