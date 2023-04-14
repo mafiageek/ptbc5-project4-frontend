@@ -12,7 +12,16 @@ const AuthNavigator = () => (
       headerMode: "none",
     }}
   >
-    <Stack.Screen name="Login" component={LoginScreen} />
+    <Stack.Screen
+      name="Login"
+      component={LoginScreen}
+      options={() => ({
+        tabBarStyle: {
+          display: "none",
+        },
+        tabBarButton: () => null,
+      })}
+    />
     <Stack.Screen name="Default" component={AppNavigator} />
   </Stack.Navigator>
 );
