@@ -4,8 +4,9 @@ import { Button, TextInput, Text } from "react-native-paper";
 import { useAuth } from "../context/auth";
 import axios from "axios";
 import { BASE_URL } from "@env";
+import AppNavigator from "../navigation/AppNavigator";
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
   const [auth, setAuth] = useAuth();
   const [password, setPassword] = useState(null);
   const [email, setEmail] = useState(null);
@@ -19,6 +20,8 @@ const LoginScreen = () => {
     // console.log("data =>", data);
     console.log("auth =>", auth);
     console.log(auth.email);
+
+    navigation.navigate("Default");
   };
 
   const handleRegister = () => {};
@@ -39,9 +42,10 @@ const LoginScreen = () => {
         mode="outlined"
         style={{ marginTop: 100 }}
         left={<TextInput.Icon icon="email-outline" />}
+        autoCapitalize="none"
       />
       <TextInput
-        secureTextEntry="true"
+        secureTextEntry
         label="Password"
         onChangeText={(text) => setPassword(text)}
         value={password}

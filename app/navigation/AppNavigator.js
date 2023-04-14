@@ -4,7 +4,7 @@ import { CommonActions } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Text, BottomNavigation } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-
+import { useAuth } from "../context/auth";
 import FeedNavigator from "./FeedNavigator";
 import AddNavigator from "./AddNavigator";
 import AccountNavigator from "./AccountNavigator";
@@ -12,6 +12,7 @@ import AccountNavigator from "./AccountNavigator";
 const Tab = createBottomTabNavigator();
 
 export default function AppNavigator() {
+  const [auth, setAuth] = useAuth();
   return (
     <Tab.Navigator
       screenOptions={{
@@ -69,6 +70,7 @@ export default function AppNavigator() {
           },
         }}
       />
+
       <Tab.Screen
         name="Post"
         component={AddNavigator}

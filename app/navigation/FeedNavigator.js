@@ -5,7 +5,7 @@ import FeedScreen from "../screens/FeedScreen";
 const Stack = createStackNavigator();
 
 const FeedNavigator = () => (
-  <Stack.Navigator initialRouteName="Feed">
+  <Stack.Navigator>
     <Stack.Screen name="Listings" component={FeedScreen} />
     <Stack.Screen name="Detail" component={FeedDetailScreen} />
   </Stack.Navigator>
