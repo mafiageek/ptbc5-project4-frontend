@@ -5,7 +5,11 @@ import AddScreen from "../screens/AddScreen";
 const Stack = createStackNavigator();
 
 const AddNavigator = () => (
-  <Stack.Navigator>
+  <Stack.Navigator
+    screenOptions={{
+      headerShown: false,
+    }}
+  >
     <Stack.Screen name="New" component={AddScreen} />
   </Stack.Navigator>
 );

@@ -65,35 +65,8 @@ const AddScreen = ({ navigation }) => {
     }
   };
 
-  // useEffect(() => {
-
-  //   // console.log("categories =>", categories);
-  // }, []);
-
-  // useEffect(() => {
-  //   async () => {
-  //     let { status } = await Location.requestForegroundPermissionsAsync();
-  //     if (status !== "granted") {
-  //       setErrorMsg("Permission to access location was denied");
-  //       return;
-  //     }
-
-  //     const {
-  //       coords: { latitude, longitude },
-  //     } = await Location.getLastKnownPositionAsync({});
-  //     setlatitude(latitude);
-  //     setLongitude(longitude);
-  //     console.log("lat =>", latitude);
-  //     console.log("lon =>", longitude);
-  //   }();
-  // }, []);
-
   useEffect(() => {
-    // don't think so do it this way
-    // if (!auth.token) {
-    //   navigation.navigate("New");
-    // }
-
+    console.log("auth =>", auth.token);
     loadCategories();
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -126,8 +99,8 @@ const AddScreen = ({ navigation }) => {
     bodyFormData.append("photo", base64Photo);
     bodyFormData.append("latitude", latitude);
     bodyFormData.append("longitude", longitude);
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDI0NDVhOTI5YTBiZWJhZjU3YTRkYjIiLCJpYXQiOjE2ODA5NDk0NTMsImV4cCI6MTY4MTU1NDI1M30.tBYo83xQZfhiN_jvp7cSG0d7f_yzK0VimYkmXpuREuc";
+    const token = auth.token;
+    console.log("token =>", auth.token);
 
     axios({
       method: "post",
@@ -169,7 +142,7 @@ const AddScreen = ({ navigation }) => {
           {image && (
             <Image
               source={{ uri: image }}
-              style={{ width: 100, height: 100 }}
+              style={{ width: 300, height: 200 }}
             />
           )}
         </View>

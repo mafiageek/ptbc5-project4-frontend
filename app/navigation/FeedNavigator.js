@@ -14,7 +14,13 @@ const FeedNavigator = () => (
         headerMode: "none",
       }}
     />
-    <Stack.Screen name="Detail" component={FeedDetailScreen} />
+    <Stack.Screen
+      name="Detail"
+      component={FeedDetailScreen}
+      options={{
+        headerShown: false,
+      }}
+    />
   </Stack.Navigator>
 );
 
