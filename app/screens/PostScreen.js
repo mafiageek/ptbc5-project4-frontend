@@ -16,7 +16,7 @@ import * as FileSystem from "expo-file-system";
 import * as Location from "expo-location";
 import { useAuth } from "../context/auth";
 
-const AddScreen = ({ navigation }) => {
+const PostScreen = ({ navigation }) => {
   const [image, setImage] = useState(null);
   const [selected, setSelected] = React.useState("");
   const [categories, setCategories] = useState([]);
@@ -186,4 +186,4 @@ const AddScreen = ({ navigation }) => {
   );
 };
 
-export default AddScreen;
+export default PostScreen;

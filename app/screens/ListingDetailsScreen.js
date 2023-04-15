@@ -13,7 +13,7 @@ const HideKeyboard = ({ children }) => (
   </TouchableWithoutFeedback>
 );
 
-const FeedDetailScreen = ({ route }) => {
+const ListingDetailsScreen = ({ route }) => {
   const { photo, title, price, description, latitude, longitude } =
     route.params;
 
@@ -47,4 +47,4 @@ const FeedDetailScreen = ({ route }) => {
   );
 };
 
-export default FeedDetailScreen;
+export default ListingDetailsScreen;

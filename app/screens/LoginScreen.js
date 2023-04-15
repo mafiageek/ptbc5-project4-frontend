@@ -1,13 +1,14 @@
-import { StyleSheet, View, SafeAreaView } from "react-native";
-import React, { useEffect, useState } from "react";
+import { StyleSheet, SafeAreaView } from "react-native";
+import React, { useContext, useState } from "react";
 import { Button, TextInput, Text } from "react-native-paper";
-import { useAuth } from "../context/auth";
 import axios from "axios";
 import { BASE_URL } from "@env";
-import AppNavigator from "../navigation/AppNavigator";
+import AuthContext from "../auth/context";
+import { useAuth } from "../context/auth";
 
 const LoginScreen = ({ navigation }) => {
   const [auth, setAuth] = useAuth();
+
   const [password, setPassword] = useState(null);
   const [email, setEmail] = useState(null);
 
@@ -16,12 +17,12 @@ const LoginScreen = ({ navigation }) => {
       email: email,
       password: password,
     });
+    console.log("data =>", data);
     setAuth(data);
     // console.log("data =>", data);
     console.log("auth =>", auth);
     console.log(auth.email);
-
-    navigation.navigate("Default");
+    navigation.navigate("App");
   };
 
   const handleRegister = () => {};

@@ -8,7 +8,7 @@ const Listings = ({ item, navigation }) => {
       <Card
         style={{ padding: 15 }}
         onPress={() =>
-          navigation.navigate("Detail", {
+          navigation.navigate("ListingDetails", {
             title: item.title,
             price: item.price,
             description: item.description,

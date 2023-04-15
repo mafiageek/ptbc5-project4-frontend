@@ -1,104 +1,48 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
-import { CommonActions } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Text, BottomNavigation } from "react-native-paper";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { useAuth } from "../context/auth";
-import FeedNavigator from "./FeedNavigator";
-import AddNavigator from "./AddNavigator";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import AccountNavigator from "./AccountNavigator";
+import FeedNavigator from "./FeedNavigator";
+import PostScreen from "../screens/PostScreen";
 
 const Tab = createBottomTabNavigator();
 
-export default function AppNavigator() {
-  const [auth, setAuth] = useAuth();
+const AppNavigator = () => {
   return (
-    <Tab.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}
-      tabBar={({ navigation, state, descriptors, insets }) => (
-        <BottomNavigation.Bar
-          navigationState={state}
-          safeAreaInsets={insets}
-          onTabPress={({ route, preventDefault }) => {
-            const event = navigation.emit({
-              type: "tabPress",
-              target: route.key,
-              canPreventDefault: true,
-            });
-
-            if (event.defaultPrevented) {
-              preventDefault();
-            } else {
-              navigation.dispatch({
-                ...CommonActions.navigate(route.name, route.params),
-                target: state.key,
-              });
-            }
-          }}
-          renderIcon={({ route, focused, color }) => {
-            const { options } = descriptors[route.key];
-            if (options.tabBarIcon) {
-              return options.tabBarIcon({ focused, color, size: 24 });
-            }
-
-            return null;
-          }}
-          getLabelText={({ route }) => {
-            const { options } = descriptors[route.key];
-            const label =
-              options.tabBarLabel !== undefined
-                ? options.tabBarLabel
-                : options.title !== undefined
-                ? options.title
-                : route.title;
-
-            return label;
-          }}
-        />
-      )}
-    >
+    <Tab.Navigator>
       <Tab.Screen
-        name="Home"
+        name="Feed"
         component={FeedNavigator}
         options={{
-          tabBarLabel: "Home",
-          tabBarIcon: ({ color, size }) => {
-            return <Icon name="home" size={size} color={color} />;
-          },
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="home" color={color} size={size} />
+          ),
         }}
       />
-
       <Tab.Screen
-        name="Post"
-        component={AddNavigator}
+        name="ListingEdit"
+        component={PostScreen}
         options={{
-          tabBarLabel: "Post",
-          tabBarIcon: ({ color, size }) => {
-            return <Icon name="plus-circle" size={size} color={color} />;
-          },
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons
+              name="plus-circle"
+              color={color}
+              size={size}
+            />
+          ),
         }}
       />
       <Tab.Screen
-        name="Profile"
+        name="Account"
         component={AccountNavigator}
         options={{
-          tabBarLabel: "Profile",
-          tabBarIcon: ({ color, size }) => {
-            return <Icon name="account" size={size} color={color} />;
-          },
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="account" color={color} size={size} />
+          ),
         }}
       />
     </Tab.Navigator>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
+export default AppNavigator;

@@ -1,6 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import LoginScreen from "../screens/LoginScreen";
-import FeedScreen from "../screens/FeedScreen";
+import FeedScreen from "../screens/ListingsScreen";
 import AppNavigator from "./AppNavigator";
 
 const Stack = createStackNavigator();
@@ -9,7 +9,6 @@ const AuthNavigator = () => (
   <Stack.Navigator
     screenOptions={{
       headerShown: false,
-      headerMode: "none",
     }}
   >
     <Stack.Screen
@@ -22,7 +21,6 @@ const AuthNavigator = () => (
         tabBarButton: () => null,
       })}
     />
-    <Stack.Screen name="Default" component={AppNavigator} />
   </Stack.Navigator>
 );
 

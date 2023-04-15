@@ -1,26 +1,14 @@
+import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import FeedDetailScreen from "../screens/FeedDetailScreen";
-import FeedScreen from "../screens/FeedScreen";
+import ListingsScreen from "../screens/ListingsScreen";
+import ListingDetailsScreen from "../screens/ListingDetailsScreen";
 
 const Stack = createStackNavigator();
 
 const FeedNavigator = () => (
-  <Stack.Navigator>
-    <Stack.Screen
-      name="Listings"
-      component={FeedScreen}
-      options={{
-        headerBackTitleVisible: false,
-        headerMode: "none",
-      }}
-    />
-    <Stack.Screen
-      name="Detail"
-      component={FeedDetailScreen}
-      options={{
-        headerShown: false,
-      }}
-    />
+  <Stack.Navigator mode="modal" screenOptions={{ headerShown: false }}>
+    <Stack.Screen name="Listings" component={ListingsScreen} />
+    <Stack.Screen name="ListingDetails" component={ListingDetailsScreen} />
   </Stack.Navigator>
 );
 

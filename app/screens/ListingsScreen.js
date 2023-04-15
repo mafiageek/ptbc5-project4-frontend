@@ -1,16 +1,14 @@
 import { FlatList, RefreshControl, View, SafeAreaView } from "react-native";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+
 import Header from "../components/Header";
 import Listings from "../components/Listings";
 import { BASE_URL } from "@env";
-import { useAuth } from "../context/auth";
 
-const FeedScreen = ({ navigation }) => {
+const ListingsScreen = ({ navigation }) => {
   const [listings, setListings] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
-  const [auth, setAuth] = useAuth();
-  console.log(auth);
 
   const loadListings = async () => {
     try {
@@ -52,4 +50,4 @@ const FeedScreen = ({ navigation }) => {
   );
 };
 
-export default FeedScreen;
+export default ListingsScreen;
