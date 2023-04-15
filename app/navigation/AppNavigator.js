@@ -14,6 +14,7 @@ const AppNavigator = () => {
         name="Feed"
         component={FeedNavigator}
         options={{
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="home" color={color} size={size} />
           ),
