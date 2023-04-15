@@ -7,8 +7,8 @@ const Stack = createStackNavigator();
 
 const FeedNavigator = () => (
   <Stack.Navigator
-    mode="modal"
     screenOptions={{
+      presentation: "modal",
       headerShown: false,
       headerBackTitleVisible: false,
       headerMode: "none",

@@ -9,19 +9,22 @@ const Tab = createBottomTabNavigator();
 
 const AppNavigator = () => {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
       <Tab.Screen
         name="Feed"
         component={FeedNavigator}
         options={{
-          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="home" color={color} size={size} />
           ),
         }}
       />
       <Tab.Screen
-        name="ListingEdit"
+        name="Post"
         component={PostScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
@@ -34,7 +37,7 @@ const AppNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Account"
+        name="Profile"
         component={AccountNavigator}
         options={{
           tabBarIcon: ({ color, size }) => (
