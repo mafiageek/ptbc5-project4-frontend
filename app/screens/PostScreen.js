@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import React, { useEffect, useState } from "react";
-import { Button, TextInput, Text } from "react-native-paper";
+import { Button, TextInput, Snackbar } from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { SelectList } from "react-native-dropdown-select-list";
 import { BASE_URL } from "@env";
@@ -25,6 +25,7 @@ const PostScreen = ({ navigation }) => {
   const [price, setPrice] = useState("");
   const [latitude, setlatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
+  const [visible, setVisible] = React.useState(false);
 
   const [auth, setAuth] = useAuth();
 

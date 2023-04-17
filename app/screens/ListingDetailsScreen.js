@@ -5,7 +5,14 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import React from "react";
-import { Text, Card, Button, TextInput, Avatar } from "react-native-paper";
+import {
+  Text,
+  Card,
+  Button,
+  TextInput,
+  Avatar,
+  List,
+} from "react-native-paper";
 import { BASE_URL } from "@env";
 import { useAuth } from "../context/auth";
 import axios from "axios";
@@ -41,7 +48,7 @@ const ListingDetailsScreen = ({ route }) => {
       <SafeAreaView>
         <View style={{ padding: 20 }}>
           <TextInput
-            style={{ marginTop: 20, height: 80 }}
+            style={{ marginTop: 10, height: 80 }}
             multiline
             mode="outlined"
             label="Message"
@@ -56,6 +63,11 @@ const ListingDetailsScreen = ({ route }) => {
             CONTACT SELLER
           </Button>
         </View>
+        <List.Item
+          title={auth.name}
+          description={auth.email}
+          left={(props) => <List.Icon {...props} icon="face-man" />}
+        />
         <Card style={{ margin: 20 }}>
           <Card.Cover
             source={{

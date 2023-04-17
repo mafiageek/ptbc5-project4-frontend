@@ -1,4 +1,4 @@
-import { StyleSheet, SafeAreaView } from "react-native";
+import { View, ImageBackground } from "react-native";
 import React, { useState } from "react";
 import { Button, TextInput, Text } from "react-native-paper";
 import axios from "axios";
@@ -27,50 +27,49 @@ const LoginScreen = ({ navigation }) => {
   const handleRegister = () => {};
 
   return (
-    <SafeAreaView
+    <ImageBackground
+      source={require("../assets/welcome.jpg")}
       style={{
-        display: "flex",
-        alignContent: "center",
-        flexDirection: "column",
-        margin: 20,
+        flex: 1,
+        justifyContent: "flex-end",
       }}
     >
-      <TextInput
-        label="Email"
-        onChangeText={(text) => setEmail(text)}
-        value={email}
-        mode="outlined"
-        style={{ marginTop: 100 }}
-        left={<TextInput.Icon icon="email-outline" />}
-        autoCapitalize="none"
-      />
-      <TextInput
-        secureTextEntry
-        label="Password"
-        onChangeText={(text) => setPassword(text)}
-        value={password}
-        mode="outlined"
-        style={{ marginTop: 5 }}
-        left={<TextInput.Icon icon="security" />}
-      />
-      <Button
-        mode="contained"
-        style={{ marginTop: 20, padding: 5 }}
-        onPress={handleLogin}
-      >
-        LOGIN
-      </Button>
-      <Button
-        mode="contained"
-        style={{ marginTop: 20, padding: 5 }}
-        onPress={handleRegister}
-      >
-        REGISTER
-      </Button>
-    </SafeAreaView>
+      <View style={{ margin: 20, marginBottom: 60 }}>
+        <TextInput
+          label="Email"
+          onChangeText={(text) => setEmail(text)}
+          value={email}
+          mode="outlined"
+          style={{ padding: 5 }}
+          left={<TextInput.Icon icon="email-outline" />}
+          autoCapitalize="none"
+        />
+        <TextInput
+          secureTextEntry
+          label="Password"
+          onChangeText={(text) => setPassword(text)}
+          value={password}
+          mode="outlined"
+          style={{ padding: 5, marginTop: 10 }}
+          left={<TextInput.Icon icon="security" />}
+        />
+        <Button
+          mode="contained"
+          style={{ marginTop: 20, padding: 5 }}
+          onPress={handleLogin}
+        >
+          LOGIN
+        </Button>
+        <Button
+          mode="contained"
+          style={{ marginTop: 20, padding: 5 }}
+          onPress={handleRegister}
+        >
+          REGISTER
+        </Button>
+      </View>
+    </ImageBackground>
   );
 };
 
 export default LoginScreen;
-
-const styles = StyleSheet.create({});

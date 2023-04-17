@@ -12,18 +12,18 @@ import {
 } from "react-native";
 import { List } from "react-native-paper";
 
-const MyMessages = () => {
-  const [messages, setMessages] = useState("");
+const MyListings = () => {
   const [auth, setAuth] = useAuth();
+  const [listings, setListings] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
 
-  const loadMessages = async () => {
+  const loadListings = async () => {
     try {
       const { data } = await axios.get(
-        `${BASE_URL}/messages?touserid=${auth.uid}`
+        `${BASE_URL}/listings?userid=${auth.uid}`
       );
       console.log(data);
-      setMessages(data);
+      setListings(data);
     } catch (err) {
       console.log(err);
     }
@@ -31,14 +31,14 @@ const MyMessages = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`${BASE_URL}/message/${id}`);
+      await axios.delete(`${BASE_URL}/listing/${id}`);
     } catch (err) {
       console.log(err);
     }
   };
 
   useEffect(() => {
-    loadMessages();
+    loadListings();
   }, []);
 
   const renderItem = ({ item }) => (
@@ -58,25 +58,23 @@ const MyMessages = () => {
         </TouchableWithoutFeedback>
       )}
     >
-      <List.Item title={item.fromuserid.name} description={item.content} />
+      <List.Item title={item.title} description={item.description} />
     </Swipeable>
   );
   return (
     <List.AccordionGroup>
       <List.Accordion
         style={{ marginLeft: 7 }}
-        title="My Messages"
+        title="My Listings"
         id="1"
-        left={(props) => (
-          <List.Icon {...props} icon="message-reply-text-outline" />
-        )}
+        left={(props) => <List.Icon {...props} icon="format-list-bulleted" />}
       >
         <FlatList
-          data={messages}
+          data={listings}
           renderItem={renderItem}
           keyExtractor={(item) => item._id}
           refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={loadMessages} />
+            <RefreshControl refreshing={refreshing} onRefresh={loadListings} />
           }
         />
       </List.Accordion>
@@ -84,4 +82,4 @@ const MyMessages = () => {
   );
 };
 
-export default MyMessages;
+export default MyListings;
