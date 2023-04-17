@@ -10,12 +10,21 @@ const ListingsScreen = ({ navigation }) => {
   const [listings, setListings] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
 
-  const loadListings = async () => {
+  const loadListings = async (catId) => {
     try {
-      console.log(`${BASE_URL}/listings`);
-      const { data } = await axios.get(`${BASE_URL}/listings`);
+      console.log(`${BASE_URL}`);
+      if (!catId) {
+        const { data } = await axios.get(`${BASE_URL}/listings`);
+        setListings(data);
+      } else {
+        const { data } = await axios.get(
+          `${BASE_URL}/listings?category=${catId}`
+        );
+        setListings(data);
+      }
+
       setRefreshing(false);
-      setListings(data);
+      // setListings(data);
     } catch (err) {
       console.log(err);
     }
@@ -35,7 +44,11 @@ const ListingsScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView>
-      <Header />
+      <Header
+        listings={listings}
+        setListings={setListings}
+        loadListings={loadListings}
+      />
       <FlatList
         data={listings}
         keyExtractor={(listing) => listing._id.toString()}

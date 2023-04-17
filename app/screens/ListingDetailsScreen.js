@@ -6,6 +6,9 @@ import {
 } from "react-native";
 import React from "react";
 import { Text, Card, Button, TextInput, Avatar } from "react-native-paper";
+import { BASE_URL } from "@env";
+import { useAuth } from "../context/auth";
+import axios from "axios";
 
 const HideKeyboard = ({ children }) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -14,10 +17,24 @@ const HideKeyboard = ({ children }) => (
 );
 
 const ListingDetailsScreen = ({ route }) => {
-  const { photo, title, price, description, latitude, longitude } =
+  const [text, setText] = React.useState("");
+  const [auth, setAuth] = useAuth();
+  const { userid, photo, title, price, description, latitude, longitude } =
     route.params;
 
-  const [text, setText] = React.useState("");
+  const handleSubmit = async () => {
+    try {
+      const { data } = await axios.post(`${BASE_URL}/message`, {
+        fromuserid: auth.uid,
+        touserid: userid,
+        content: text,
+      });
+      setText("");
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <HideKeyboard>
@@ -31,11 +48,15 @@ const ListingDetailsScreen = ({ route }) => {
             value={text}
             onChangeText={(text) => setText(text)}
           />
-          <Button mode="contained" style={{ marginTop: 20 }}>
+          <Button
+            mode="contained"
+            style={{ marginTop: 20, padding: 5 }}
+            onPress={handleSubmit}
+          >
             CONTACT SELLER
           </Button>
         </View>
-        <Card style={{ padding: 15 }}>
+        <Card style={{ margin: 20 }}>
           <Card.Cover
             source={{
               uri: `https://developers.onemap.sg/commonapi/staticmap/getStaticImage?layerchosen=default&lat=${latitude}&lng=${longitude}&zoom=16&height=256&width=384`,

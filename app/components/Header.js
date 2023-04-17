@@ -4,9 +4,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "@env";
 
-const Header = () => {
+const Header = ({ listings, setListings, loadListings }) => {
   const [categories, setCategories] = useState([]);
-
+  const [mode, setMode] = useState("outlined");
   const loadCategories = async () => {
     try {
       console.log(`${BASE_URL}/categories`);
@@ -27,8 +27,11 @@ const Header = () => {
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {categories.map((item) => (
           <Button
+            onPress={() => {
+              loadListings(item._id);
+            }}
             key={item._id}
-            mode="outlined"
+            mode="Contained-tonal"
             compact="true"
             style={{ marginHorizontal: 5 }}
           >

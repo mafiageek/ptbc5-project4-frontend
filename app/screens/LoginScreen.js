@@ -1,9 +1,8 @@
 import { StyleSheet, SafeAreaView } from "react-native";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Button, TextInput, Text } from "react-native-paper";
 import axios from "axios";
 import { BASE_URL } from "@env";
-import AuthContext from "../auth/context";
 import { useAuth } from "../context/auth";
 
 const LoginScreen = ({ navigation }) => {

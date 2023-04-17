@@ -174,7 +174,7 @@ const PostScreen = ({ navigation }) => {
           save="name"
         />
         <Button
-          style={{ marginTop: 20 }}
+          style={{ marginTop: 20, marginBottom: 10, padding: 5 }}
           mode="contained"
           onPress={handleSubmit}
         >
