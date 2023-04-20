@@ -5,27 +5,24 @@ import axios from "axios";
 import { BASE_URL } from "@env";
 import { useAuth } from "../context/auth";
 
-const LoginScreen = ({ navigation }) => {
+const RegisterScreen = ({ navigation }) => {
   const [auth, setAuth] = useAuth();
 
+  const [name, setName] = useState(null);
   const [password, setPassword] = useState(null);
   const [email, setEmail] = useState(null);
 
-  const handleLogin = async () => {
-    const { data } = await axios.post(`${BASE_URL}/login`, {
+  const handleRegister = async () => {
+    const { data } = await axios.post(`${BASE_URL}/register`, {
       email: email,
       password: password,
+      name: name,
     });
     console.log("data =>", data);
     setAuth(data);
     // console.log("data =>", data);
     console.log("auth =>", auth);
-    console.log(auth.email);
     navigation.navigate("App");
-  };
-
-  const handleRegister = () => {
-    navigation.navigate("Register");
   };
 
   return (
@@ -39,11 +36,20 @@ const LoginScreen = ({ navigation }) => {
       <KeyboardAvoidingView behavior="padding">
         <View style={{ margin: 20, marginBottom: 60 }}>
           <TextInput
+            label="Name"
+            onChangeText={(text) => setName(text)}
+            value={name}
+            mode="outlined"
+            style={{ padding: 5 }}
+            left={<TextInput.Icon icon="account-arrow-right-outline" />}
+            autoCapitalize="none"
+          />
+          <TextInput
             label="Email"
             onChangeText={(text) => setEmail(text)}
             value={email}
             mode="outlined"
-            style={{ padding: 5 }}
+            style={{ padding: 5, marginTop: 10 }}
             left={<TextInput.Icon icon="email-outline" />}
             autoCapitalize="none"
           />
@@ -61,16 +67,16 @@ const LoginScreen = ({ navigation }) => {
           <Button
             mode="contained"
             style={{ marginTop: 20, padding: 5 }}
-            onPress={handleLogin}
+            onPress={handleRegister}
           >
-            LOGIN
+            REGISTER
           </Button>
           <Button
             mode="contained"
             style={{ marginTop: 20, padding: 5 }}
-            onPress={handleRegister}
+            onPress={() => navigation.navigate("Login")}
           >
-            REGISTER
+            CANCEL
           </Button>
         </View>
       </KeyboardAvoidingView>
@@ -78,4 +84,4 @@ const LoginScreen = ({ navigation }) => {
   );
 };
 
-export default LoginScreen;
+export default RegisterScreen;

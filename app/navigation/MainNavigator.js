@@ -19,7 +19,7 @@ const MainNavigator = () => {
       {auth?.token ? (
         <Stack.Screen name="App" component={AppNavigator} />
       ) : (
-        <Stack.Screen name="Auth" component={LoginScreen} />
+        <Stack.Screen name="Auth" component={AuthNavigator} />
       )}
     </Stack.Navigator>
   );

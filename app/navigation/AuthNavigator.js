@@ -1,7 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import LoginScreen from "../screens/LoginScreen";
-import FeedScreen from "../screens/ListingsScreen";
-import AppNavigator from "./AppNavigator";
+import RegisterScreen from "../screens/RegisterScreen";
 
 const Stack = createStackNavigator();
 
@@ -21,6 +20,7 @@ const AuthNavigator = () => (
         tabBarButton: () => null,
       })}
     />
+    <Stack.Screen name="Register" component={RegisterScreen} />
   </Stack.Navigator>
 );
 

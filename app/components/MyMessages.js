@@ -22,7 +22,7 @@ const MyMessages = () => {
       const { data } = await axios.get(
         `${BASE_URL}/messages?touserid=${auth.uid}`
       );
-      console.log(data);
+      // console.log("message =>", data);
       setMessages(data);
     } catch (err) {
       console.log(err);

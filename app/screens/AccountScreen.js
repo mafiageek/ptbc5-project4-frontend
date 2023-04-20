@@ -19,7 +19,7 @@ const AccountScreen = ({ navigation }) => {
       <Divider style={{ marginTop: 20 }} />
       <List.Item
         title={auth?.name}
-        description={auth.email}
+        description={auth?.email}
         left={(props) => <List.Icon {...props} icon="account-box-outline" />}
       />
       <Divider />

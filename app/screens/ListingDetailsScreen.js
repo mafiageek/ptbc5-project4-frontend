@@ -37,7 +37,7 @@ const ListingDetailsScreen = ({ route }) => {
         content: text,
       });
       setText("");
-      console.log(data);
+      // console.log("test =>", data);
     } catch (err) {
       console.log(err);
     }
