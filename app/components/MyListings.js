@@ -32,6 +32,7 @@ const MyListings = () => {
   const handleDelete = async (id) => {
     try {
       await axios.delete(`${BASE_URL}/listing/${id}`);
+      loadListings();
     } catch (err) {
       console.log(err);
     }

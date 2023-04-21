@@ -4,10 +4,16 @@ import {
   TouchableWithoutFeedback,
   SafeAreaView,
   View,
+  KeyboardAvoidingView,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import React, { useEffect, useState } from "react";
-import { Button, TextInput, Snackbar } from "react-native-paper";
+import {
+  Button,
+  TextInput,
+  MD2Colors,
+  ActivityIndicator,
+} from "react-native-paper";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { SelectList } from "react-native-dropdown-select-list";
 import { BASE_URL } from "@env";
@@ -25,8 +31,7 @@ const PostScreen = ({ navigation }) => {
   const [price, setPrice] = useState("");
   const [latitude, setlatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
-  const [visible, setVisible] = React.useState(false);
-
+  const [activity, setActivity] = useState(false);
   const [auth, setAuth] = useAuth();
 
   const handlePress = () => {
@@ -46,9 +51,7 @@ const PostScreen = ({ navigation }) => {
       quality: 0.5,
     });
 
-    console.log(result);
-
-    if (!result.canceled) {
+    if (!result?.canceled) {
       setImage(result.assets[0].uri);
     }
   };
@@ -67,12 +70,12 @@ const PostScreen = ({ navigation }) => {
   };
 
   useEffect(() => {
-    console.log("auth =>", auth.token);
+    console.log("auth =>", auth?.token);
     loadCategories();
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
-        setErrorMsg("Permission to access location was denied");
+        Alert.alert("Permission to access location was denied");
         return;
       }
 
@@ -87,6 +90,7 @@ const PostScreen = ({ navigation }) => {
   }, []);
 
   const handleSubmit = async () => {
+    setActivity(true);
     const base64Encode = await FileSystem.readAsStringAsync(image, {
       encoding: "base64",
     });
@@ -112,6 +116,7 @@ const PostScreen = ({ navigation }) => {
       },
     })
       .then((response) => {
+        setActivity(false);
         handleCancel();
         console.log(response);
       })
@@ -143,45 +148,49 @@ const PostScreen = ({ navigation }) => {
           {image && (
             <Image
               source={{ uri: image }}
-              style={{ width: 300, height: 200 }}
+              style={{ width: 200, height: 150 }}
             />
           )}
         </View>
-        <TextInput
-          mode="outlined"
-          label="Title"
-          left={<TextInput.Icon icon="pencil-outline" />}
-          onChangeText={(text) => setTitle(text)}
-          value={title}
-        ></TextInput>
-        <TextInput
-          mode="outlined"
-          label="Price"
-          left={<TextInput.Icon icon="diamond-outline" />}
-          onChangeText={(text) => setPrice(text)}
-          value={price}
-        ></TextInput>
-        <TextInput
-          mode="outlined"
-          label="Description"
-          style={{ marginBottom: 6 }}
-          left={<TextInput.Icon icon="calendar-text" />}
-          onChangeText={(text) => setDescription(text)}
-          value={description}
-        ></TextInput>
-        <SelectList
-          setSelected={(val) => setSelected(val)}
-          data={categories}
-          save="name"
-        />
-        <Button
-          style={{ marginTop: 20, marginBottom: 10, padding: 5 }}
-          mode="contained"
-          onPress={handleSubmit}
-        >
-          POST
-        </Button>
-        <Button onPress={handleCancel}>Cancel</Button>
+        <ActivityIndicator animating={activity} size="large" />
+        <KeyboardAvoidingView behavior="padding">
+          <TextInput
+            mode="outlined"
+            label="Title"
+            left={<TextInput.Icon icon="pencil-outline" />}
+            onChangeText={(text) => setTitle(text)}
+            value={title}
+          ></TextInput>
+          <TextInput
+            mode="outlined"
+            label="Price"
+            left={<TextInput.Icon icon="diamond-outline" />}
+            onChangeText={(text) => setPrice(text)}
+            value={price}
+          ></TextInput>
+          <TextInput
+            mode="outlined"
+            label="Description"
+            style={{ marginBottom: 6 }}
+            left={<TextInput.Icon icon="calendar-text" />}
+            onChangeText={(text) => setDescription(text)}
+            value={description}
+          ></TextInput>
+          <SelectList
+            setSelected={(val) => setSelected(val)}
+            data={categories}
+            save="name"
+          />
+
+          <Button
+            style={{ marginTop: 20, marginBottom: 10, padding: 5 }}
+            mode="contained"
+            onPress={handleSubmit}
+          >
+            POST
+          </Button>
+          <Button onPress={handleCancel}>Cancel</Button>
+        </KeyboardAvoidingView>
       </SafeAreaView>
     </TouchableWithoutFeedback>
   );

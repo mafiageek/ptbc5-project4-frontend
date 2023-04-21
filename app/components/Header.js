@@ -1,12 +1,11 @@
 import { ScrollView, View } from "react-native";
-import { Button, Appbar } from "react-native-paper";
+import { Button, Chip } from "react-native-paper";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "@env";
 
 const Header = ({ listings, setListings, loadListings }) => {
   const [categories, setCategories] = useState([]);
-  const [mode, setMode] = useState("outlined");
   const loadCategories = async () => {
     try {
       console.log(`${BASE_URL}/categories`);

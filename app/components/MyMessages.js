@@ -32,6 +32,7 @@ const MyMessages = () => {
   const handleDelete = async (id) => {
     try {
       await axios.delete(`${BASE_URL}/message/${id}`);
+      loadMessages();
     } catch (err) {
       console.log(err);
     }
