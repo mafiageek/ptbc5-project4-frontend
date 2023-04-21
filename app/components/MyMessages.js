@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import { List } from "react-native-paper";
 
-const MyMessages = () => {
+const MyMessages = ({ navigation }) => {
   const [messages, setMessages] = useState("");
   const [auth, setAuth] = useAuth();
   const [refreshing, setRefreshing] = useState(false);
@@ -40,6 +40,7 @@ const MyMessages = () => {
 
   useEffect(() => {
     loadMessages();
+    console.log(messages);
   }, []);
 
   const renderItem = ({ item }) => (
@@ -59,7 +60,16 @@ const MyMessages = () => {
         </TouchableWithoutFeedback>
       )}
     >
-      <List.Item title={item.fromuserid.name} description={item.content} />
+      <List.Item
+        title={item.fromuserid.name}
+        description={item.content}
+        onPress={() =>
+          navigation.navigate("Chat", {
+            fromuserid: item.fromuserid,
+            touserid: item.touserid,
+          })
+        }
+      />
     </Swipeable>
   );
   return (

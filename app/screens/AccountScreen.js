@@ -25,7 +25,7 @@ const AccountScreen = ({ navigation }) => {
       <Divider />
       <MyListings />
       <Divider />
-      <MyMessages />
+      <MyMessages navigation={navigation} />
       <Divider />
       <Button
         mode="contained"
