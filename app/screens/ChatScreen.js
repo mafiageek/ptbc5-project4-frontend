@@ -18,8 +18,8 @@ const ChatScreen = ({ route }) => {
   const { fromuserid, touserid } = route.params;
   const [auth, setAuth] = useAuth();
 
-  const from = fromuserid._id.toString();
-  const to = touserid._id.toString();
+  const from = fromuserid.toString();
+  const to = touserid.toString();
 
   const [refreshing, setRefreshing] = useState(false);
 

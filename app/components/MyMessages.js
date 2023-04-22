@@ -22,8 +22,49 @@ const MyMessages = ({ navigation }) => {
       const { data } = await axios.get(
         `${BASE_URL}/messages?touserid=${auth.uid}`
       );
-      // console.log("message =>", data);
-      setMessages(data);
+
+      const messages = data;
+
+      // Create an object to store the latest message for each fromuserid
+      const latestMessages = {};
+
+      // Loop through each message in the messages array
+      messages.forEach((message) => {
+        // Get the fromuserid of the current message
+        const fromuserid = message.fromuserid;
+
+        // Check if there is already a latest message for this fromuserid
+        if (
+          !latestMessages[fromuserid._id] ||
+          new Date(message.createdAt) >
+            new Date(latestMessages[fromuserid._id].createdAt)
+        ) {
+          // If there is no latest message or the current message is newer than the latest message, update the latest message
+          latestMessages[fromuserid._id] = message;
+        }
+      });
+
+      // Get the name, userid, and content of the latest message from each fromuserid
+      const latestContentByName = Object.keys(latestMessages).reduce(
+        (result, fromuseridId) => {
+          const latestMessage = latestMessages[fromuseridId];
+          result.push({
+            name: latestMessage.fromuserid.name,
+            fromuserid: latestMessage.fromuserid._id,
+            touserid: latestMessage.touserid._id,
+            content: latestMessage.content,
+            _id: latestMessage._id,
+          });
+          return result;
+        },
+        []
+      );
+
+      console.log(latestContentByName);
+
+      // console.log("messages =>", data);
+
+      setMessages(latestContentByName);
     } catch (err) {
       console.log(err);
     }
@@ -40,7 +81,6 @@ const MyMessages = ({ navigation }) => {
 
   useEffect(() => {
     loadMessages();
-    console.log(messages);
   }, []);
 
   const renderItem = ({ item }) => (
@@ -61,7 +101,7 @@ const MyMessages = ({ navigation }) => {
       )}
     >
       <List.Item
-        title={item.fromuserid.name}
+        title={item.name}
         description={item.content}
         onPress={() =>
           navigation.navigate("Chat", {
