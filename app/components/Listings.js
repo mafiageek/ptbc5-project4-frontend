@@ -14,9 +14,11 @@ const Listings = ({ item, navigation }) => {
             description: item.description,
             photo: item.photo,
             location: item.location,
-            userid: item.userid,
             longitude: item.longitude,
             latitude: item.latitude,
+            name: item.userid.name,
+            userid: item.userid._id,
+            email: item.userid.email,
           })
         }
       >

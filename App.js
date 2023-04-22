@@ -3,7 +3,7 @@ import { Provider as PaperProvider, Text } from "react-native-paper";
 import { NavigationContainer } from "@react-navigation/native";
 import { AuthProvider } from "./app/context/auth";
 import MainNavigator from "./app/navigation/MainNavigator";
-import AuthNavigator from "./app/navigation/AuthNavigator";
+import Toast from "react-native-toast-message";
 import * as Notifications from "expo-notifications";
 
 Notifications.setNotificationHandler({
@@ -39,12 +39,15 @@ export default function App() {
   }, []);
 
   return (
-    <AuthProvider>
-      <NavigationContainer>
-        <PaperProvider>
-          <MainNavigator />
-        </PaperProvider>
-      </NavigationContainer>
-    </AuthProvider>
+    <>
+      <AuthProvider>
+        <NavigationContainer>
+          <PaperProvider>
+            <MainNavigator />
+          </PaperProvider>
+        </NavigationContainer>
+      </AuthProvider>
+      <Toast />
+    </>
   );
 }

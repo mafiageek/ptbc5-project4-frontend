@@ -16,6 +16,7 @@ import {
 import { BASE_URL } from "@env";
 import { useAuth } from "../context/auth";
 import axios from "axios";
+import Toast from "react-native-toast-message";
 
 const HideKeyboard = ({ children }) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -26,8 +27,17 @@ const HideKeyboard = ({ children }) => (
 const ListingDetailsScreen = ({ route }) => {
   const [text, setText] = React.useState("");
   const [auth, setAuth] = useAuth();
-  const { userid, photo, title, price, description, latitude, longitude } =
-    route.params;
+  const {
+    userid,
+    photo,
+    title,
+    price,
+    description,
+    latitude,
+    longitude,
+    name,
+    email,
+  } = route.params;
 
   const handleSubmit = async () => {
     try {
@@ -37,10 +47,18 @@ const ListingDetailsScreen = ({ route }) => {
         content: text,
       });
       setText("");
+      showToast();
       // console.log("test =>", data);
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const showToast = () => {
+    Toast.show({
+      type: "success",
+      text1: "Sent",
+    });
   };
 
   return (
@@ -64,8 +82,8 @@ const ListingDetailsScreen = ({ route }) => {
           </Button>
         </View>
         <List.Item
-          title={auth.name}
-          description={auth.email}
+          title={name}
+          description={email}
           left={(props) => <List.Icon {...props} icon="face-man" />}
         />
         <Card style={{ margin: 20 }}>
