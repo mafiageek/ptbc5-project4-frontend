@@ -58,6 +58,7 @@ const ListingDetailsScreen = ({ route }) => {
     Toast.show({
       type: "success",
       text1: "Sent",
+      visibilityTime: 2000,
     });
   };
 

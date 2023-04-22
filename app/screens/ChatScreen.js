@@ -63,7 +63,7 @@ const ChatScreen = ({ route }) => {
   }, []);
 
   const renderItem = ({ item }) => (
-    <Card>
+    <Card style={{ margin: 10 }}>
       <Card.Content>
         <Text variant="titleLarge">Date: {item.updatedAt}</Text>
         <Text variant="titleLarge">
@@ -79,7 +79,7 @@ const ChatScreen = ({ route }) => {
   );
 
   return (
-    <SafeAreaView style={{ marginTop: 20 }}>
+    <SafeAreaView style={{ marginTop: 30 }}>
       <FlatList
         data={conversation}
         renderItem={renderItem}
@@ -105,16 +105,6 @@ const ChatScreen = ({ route }) => {
 export default ChatScreen;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#F5F5F5",
-  },
-  chatContainer: {
-    flex: 1,
-    margin: 16,
-    padding: 16,
-    borderRadius: 8,
-  },
   inputContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -123,13 +113,5 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 8,
     elevation: 4,
-  },
-  input: {
-    flex: 1,
-    marginRight: 8,
-  },
-  sendButton: {
-    backgroundColor: "#2196F3",
-    borderRadius: 8,
   },
 });
