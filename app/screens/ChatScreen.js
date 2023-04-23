@@ -5,6 +5,7 @@ import {
   SafeAreaView,
   FlatList,
   RefreshControl,
+  ScrollView,
 } from "react-native";
 import { Card, TextInput, IconButton } from "react-native-paper";
 import React, { useState, useEffect } from "react";
@@ -14,7 +15,7 @@ import { useAuth } from "../context/auth";
 
 const ChatScreen = ({ route }) => {
   const [conversation, setConversation] = useState([]);
-  const [message, setMessage] = useState([""]);
+  const [message, setMessage] = useState("");
   const { fromuserid, touserid } = route.params;
   const [auth, setAuth] = useAuth();
 
@@ -88,6 +89,7 @@ const ChatScreen = ({ route }) => {
           <RefreshControl refreshing={refreshing} onRefresh={loadMessages} />
         }
       />
+
       <View style={styles.inputContainer}>
         <TextInput
           style={{ flex: 1, marginRight: 8 }}

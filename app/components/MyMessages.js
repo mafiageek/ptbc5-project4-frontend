@@ -100,7 +100,7 @@ const MyMessages = ({ navigation }) => {
       )}
     >
       <List.Item
-        title={item.name}
+        title={item.fromuserid.name}
         description={item.content}
         onPress={() =>
           navigation.navigate("Chat", {

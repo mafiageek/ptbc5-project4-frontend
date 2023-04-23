@@ -24,7 +24,7 @@ const HideKeyboard = ({ children }) => (
   </TouchableWithoutFeedback>
 );
 
-const ListingDetailsScreen = ({ route }) => {
+const ListingDetailsScreen = ({ route, navigation }) => {
   const [text, setText] = React.useState("");
   const [auth, setAuth] = useAuth();
   const {
@@ -44,10 +44,11 @@ const ListingDetailsScreen = ({ route }) => {
       const { data } = await axios.post(`${BASE_URL}/message`, {
         fromuserid: auth.uid,
         touserid: userid,
-        content: text,
+        content: `${title}: ${text}`,
       });
       setText("");
       showToast();
+      navigation.navigate("Listings");
       // console.log("test =>", data);
     } catch (err) {
       console.log(err);
@@ -58,7 +59,7 @@ const ListingDetailsScreen = ({ route }) => {
     Toast.show({
       type: "success",
       text1: "Sent",
-      visibilityTime: 2000,
+      visibilityTime: 1000,
     });
   };
 
