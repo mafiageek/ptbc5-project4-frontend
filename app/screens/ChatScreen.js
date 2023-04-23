@@ -81,15 +81,6 @@ const ChatScreen = ({ route }) => {
 
   return (
     <SafeAreaView style={{ marginTop: 30 }}>
-      <FlatList
-        data={conversation}
-        renderItem={renderItem}
-        keyExtractor={(item) => item._id}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={loadMessages} />
-        }
-      />
-
       <View style={styles.inputContainer}>
         <TextInput
           style={{ flex: 1, marginRight: 8 }}
@@ -100,6 +91,14 @@ const ChatScreen = ({ route }) => {
         />
         <IconButton icon="send" onPress={sendMessage} />
       </View>
+      <FlatList
+        data={conversation}
+        renderItem={renderItem}
+        keyExtractor={(item) => item._id}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={loadMessages} />
+        }
+      />
     </SafeAreaView>
   );
 };
